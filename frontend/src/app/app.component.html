@@ -1,0 +1,7 @@
+<app-dashboard
+  *ngIf="service.initialData$ | async as initialData"
+  [groups]="initialData.groups"
+  [predictions]="service.predictions$ | async"
+  [results]="service.results$ | async"
+  (predictionsChanged)="service.changePredictions($event)">
+</app-dashboard>

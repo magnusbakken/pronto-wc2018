@@ -1,0 +1,36 @@
+<div *ngIf="formGroup" class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <form [formGroup]="formGroup" novalidate>
+    <div [formGroup]="formGroup.controls.groups">
+      <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile *ngFor="let group of groups; let groupIndex = idx">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                Group {{group.name}}
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                  <button mat-menu-item>Expand</button>
+                  <button mat-menu-item>Remove</button>
+                </mat-menu>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <app-team *ngFor="let team of group.teams" [team]="team" [showName]="false"></app-team>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <app-group
+                [formGroup]="formGroup.controls.groups.controls[group.name]"
+                [group]="group"
+                [predictions]="predictions?.groups[group.name]"
+                [results]="results?.groups[group.name]">
+              </app-group>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </form>
+</div>

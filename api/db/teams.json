@@ -1,0 +1,130 @@
+[
+    {
+        "abbreviation": "AR",
+        "fullName": "Argentina"
+    },
+    {
+        "abbreviation": "AU",
+        "fullName": "Australia"
+    },
+    {
+        "abbreviation": "BE",
+        "fullName": "Belgium"
+    },
+    {
+        "abbreviation": "BR",
+        "fullName": "Brazil"
+    },
+    {
+        "abbreviation": "CH",
+        "fullName": "Switzerland"
+    },
+    {
+        "abbreviation": "CO",
+        "fullName": "Colombia"
+    },
+    {
+        "abbreviation": "CR",
+        "fullName": "Costa Rica"
+    },
+    {
+        "abbreviation": "DE",
+        "fullName": "Germany"
+    },
+    {
+        "abbreviation": "DK",
+        "fullName": "Denmark"
+    },
+    {
+        "abbreviation": "EG",
+        "fullName": "Egypt"
+    },
+    {
+        "abbreviation": "ES",
+        "fullName": "Spain"
+    },
+    {
+        "abbreviation": "FR",
+        "fullName": "France"
+    },
+    {
+        "abbreviation": "GB-ENG",
+        "fullName": "England"
+    },
+    {
+        "abbreviation": "HR",
+        "fullName": "Croatia"
+    },
+    {
+        "abbreviation": "IR",
+        "fullName": "Iran"
+    },
+    {
+        "abbreviation": "IS",
+        "fullName": "Iceland"
+    },
+    {
+        "abbreviation": "JP",
+        "fullName": "Japan"
+    },
+    {
+        "abbreviation": "KR",
+        "fullName": "South Korea"
+    },
+    {
+        "abbreviation": "MA",
+        "fullName": "Morocco"
+    },
+    {
+        "abbreviation": "MX",
+        "fullName": "Mexico"
+    },
+    {
+        "abbreviation": "NG",
+        "fullName": "Nigeria"
+    },
+    {
+        "abbreviation": "PA",
+        "fullName": "Panama"
+    },
+    {
+        "abbreviation": "PE",
+        "fullName": "Peru"
+    },
+    {
+        "abbreviation": "PL",
+        "fullName": "Poland"
+    },
+    {
+        "abbreviation": "PT",
+        "fullName": "Portugal"
+    },
+    {
+        "abbreviation": "RS",
+        "fullName": "Serbia"
+    },
+    {
+        "abbreviation": "RU",
+        "fullName": "Russia"
+    },
+    {
+        "abbreviation": "SA",
+        "fullName": "Saudi Arabia"
+    },
+    {
+        "abbreviation": "SE",
+        "fullName": "Sweden"
+    },
+    {
+        "abbreviation": "SN",
+        "fullName": "Senegal"
+    },
+    {
+        "abbreviation": "TN",
+        "fullName": "Tunisia"
+    },
+    {
+        "abbreviation": "UY",
+        "fullName": "Uruguay"
+    }
+]

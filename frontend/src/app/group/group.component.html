@@ -1,0 +1,8 @@
+<div *ngIf="group">
+  <app-match *ngFor="let match of group.matches; let idx = index"
+    [formGroup]="formGroup.controls[idx]"
+    [match]="match"
+    [prediction]="predictions !== undefined ? predictions[idx] : null"
+    [result]="results !== undefined ? results[idx] : null">
+  </app-match>
+</div>

@@ -1,0 +1,17 @@
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+import { Group } from '../models';
+import { Score } from '../api/api.service';
+
+@Component({
+    selector: 'app-group',
+    templateUrl: './group.component.html',
+    styleUrls: ['./group.component.css']
+})
+export class GroupComponent {
+    @Input() public formGroup: FormGroup;
+    @Input() public group: Group;
+    @Input() public predictions: Score[];
+    @Input() public results: Array<Score | null>;
+}

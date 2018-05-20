@@ -1,0 +1,15 @@
+.score-field {
+    width: 30px;
+}
+
+.result {
+    font-weight: bold;
+}
+
+.correct {
+    background-color: lightgreen;
+}
+
+.incorrect {
+    background-color: lightyellow;
+}

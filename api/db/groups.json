@@ -1,0 +1,74 @@
+[
+    {
+        "name": "A",
+        "teams": [
+            "RU",
+            "SA",
+            "EG",
+            "UY"
+        ]
+    },
+    {
+        "name": "B",
+        "teams": [
+            "PT",
+            "ES",
+            "MA",
+            "IR"
+        ]
+    },
+    {
+        "name": "C",
+        "teams": [
+            "FR",
+            "AU",
+            "PE",
+            "DK"
+        ]
+    },
+    {
+        "name": "D",
+        "teams": [
+            "AR",
+            "IS",
+            "HR",
+            "NG"
+        ]
+    },
+    {
+        "name": "E",
+        "teams": [
+            "BR",
+            "CH",
+            "CR",
+            "RS"
+        ]
+    },
+    {
+        "name": "F",
+        "teams": [
+            "DE",
+            "MX",
+            "SE",
+            "KR"
+        ]
+    },
+    {
+        "name": "G",
+        "teams": [
+            "BE",
+            "PA",
+            "TN",
+            "GB-ENG"
+        ]
+    },
+    {
+        "name": "H",
+        "teams": [
+            "PL",
+            "SN",
+            "CO",
+            "JP"
+        ]
+    }
+]
