@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db/index.js');
 
 const results = require('../db/results.json');
 const groups = require('../db/groups.json');
@@ -12,8 +13,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/groups', function(req, res, next) {
+  const includePredictions = req.query.include_predictions === 'true';
+  const predictions = includePredictions ? db.getPredictions('dummyuser') : { groups: {} };
   res.setHeader('Content-Type', 'application/json');
-  res.send(calc.calculateGroupResults(results, groups, matches));
+  res.send(calc.calculateGroupResults(results, groups, matches, predictions));
+});
+
+router.get('/knockout', function(req, res, next) {
+  const includePredictions = req.query.include_predictions === 'true';
+  const predictions = includePredictions ? db.getPredictions('dummyuser') : { groups: {} };
+  res.setHeader('Content-Type', 'application/json');
+  res.send(calc.calculateKnockout(results, groups, matches, predictions));
 });
 
 module.exports = router;

@@ -1,260 +1,352 @@
 {
-    "groups": {
-        "A": [
-            {
-                "homeTeam": "RU",
-                "awayTeam": "SA",
-                "date": "2018-06-14T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "EG",
-                "awayTeam": "UY",
-                "date": "2018-06-15T17:00:00+02:00"
-            },
-            {
-                "homeTeam": "RU",
-                "awayTeam": "EG",
-                "date": "2018-06-19T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "UY",
-                "awayTeam": "SA",
-                "date": "2018-06-20T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "SA",
-                "awayTeam": "EG",
-                "date": "2018-06-25T17:00:00+02:00"
-            },
-            {
-                "homeTeam": "UY",
-                "awayTeam": "RU",
-                "date": "2018-06-25T18:00:00+02:00"
-            }
-        ],
-        "B": [
-            {
-                "homeTeam": "MA",
-                "awayTeam": "IR",
-                "date": "2018-06-15T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "PT",
-                "awayTeam": "ES",
-                "date": "2018-06-15T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "PT",
-                "awayTeam": "MA",
-                "date": "2018-06-20T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "IR",
-                "awayTeam": "ES",
-                "date": "2018-06-20T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "ES",
-                "awayTeam": "MA",
-                "date": "2018-06-25T20:00:00+02:00"
-            },
-            {
-                "homeTeam": "IR",
-                "awayTeam": "PT",
-                "date": "2018-06-25T21:00:00+02:00"
-            }
-        ],
-        "C": [
-            {
-                "homeTeam": "FR",
-                "awayTeam": "AU",
-                "date": "2018-06-16T13:00:00+02:00"
-            },
-            {
-                "homeTeam": "PE",
-                "awayTeam": "DK",
-                "date": "2018-06-16T19:00:00+02:00"
-            },
-            {
-                "homeTeam": "DK",
-                "awayTeam": "AU",
-                "date": "2018-06-21T16:00:00+02:00"
-            },
-            {
-                "homeTeam": "FR",
-                "awayTeam": "PE",
-                "date": "2018-06-21T20:00:00+02:00"
-            },
-            {
-                "homeTeam": "AU",
-                "awayTeam": "PE",
-                "date": "2018-06-26T17:00:00+02:00"
-            },
-            {
-                "homeTeam": "DK",
-                "awayTeam": "FR",
-                "date": "2018-06-26T17:00:00+02:00"
-            }
-        ],
-        "D": [
-            {
-                "homeTeam": "AR",
-                "awayTeam": "IS",
-                "date": "2018-06-16T16:00:00+02:00"
-            },
-            {
-                "homeTeam": "HR",
-                "awayTeam": "NG",
-                "date": "2018-06-16T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "AR",
-                "awayTeam": "HR",
-                "date": "2018-06-21T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "NG",
-                "awayTeam": "IS",
-                "date": "2018-06-22T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "NG",
-                "awayTeam": "AR",
-                "date": "2018-06-26T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "IS",
-                "awayTeam": "HR",
-                "date": "2018-06-26T21:00:00+02:00"
-            }
-        ],
-        "E": [
-            {
-                "homeTeam": "CR",
-                "awayTeam": "RS",
-                "date": "2018-06-17T16:00:00+02:00"
-            },
-            {
-                "homeTeam": "BR",
-                "awayTeam": "CH",
-                "date": "2018-06-17T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "BR",
-                "awayTeam": "CR",
-                "date": "2018-06-22T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "RS",
-                "awayTeam": "CH",
-                "date": "2018-06-22T20:00:00+02:00"
-            },
-            {
-                "homeTeam": "RS",
-                "awayTeam": "BR",
-                "date": "2018-06-27T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "CH",
-                "awayTeam": "CR",
-                "date": "2018-06-27T21:00:00+02:00"
-            }
-        ],
-        "F": [
-            {
-                "homeTeam": "DE",
-                "awayTeam": "MX",
-                "date": "2018-06-17T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "SE",
-                "awayTeam": "KR",
-                "date": "2018-06-18T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "KR",
-                "awayTeam": "MX",
-                "date": "2018-06-23T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "DE",
-                "awayTeam": "SE",
-                "date": "2018-06-23T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "KR",
-                "awayTeam": "DE",
-                "date": "2018-06-27T17:00:00+02:00"
-            },
-            {
-                "homeTeam": "MX",
-                "awayTeam": "SE",
-                "date": "2018-06-27T19:00:00+02:00"
-            }
-        ],
-        "G": [
-            {
-                "homeTeam": "BE",
-                "awayTeam": "PA",
-                "date": "2018-06-18T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "TN",
-                "awayTeam": "GB-ENG",
-                "date": "2018-06-18T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "BE",
-                "awayTeam": "TN",
-                "date": "2018-06-23T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "GB-ENG",
-                "awayTeam": "PA",
-                "date": "2018-06-24T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "GB-ENG",
-                "awayTeam": "BE",
-                "date": "2018-06-28T20:00:00+02:00"
-            },
-            {
-                "homeTeam": "PA",
-                "awayTeam": "TN",
-                "date": "2018-06-28T21:00:00+02:00"
-            }
-        ],
-        "H": [
-            {
-                "homeTeam": "CO",
-                "awayTeam": "JP",
-                "date": "2018-06-19T15:00:00+02:00"
-            },
-            {
-                "homeTeam": "PL",
-                "awayTeam": "SN",
-                "date": "2018-06-19T18:00:00+02:00"
-            },
-            {
-                "homeTeam": "JP",
-                "awayTeam": "SN",
-                "date": "2018-06-24T20:00:00+02:00"
-            },
-            {
-                "homeTeam": "PL",
-                "awayTeam": "CO",
-                "date": "2018-06-24T21:00:00+02:00"
-            },
-            {
-                "homeTeam": "JP",
-                "awayTeam": "PL",
-                "date": "2018-06-28T17:00:00+02:00"
-            },
-            {
-                "homeTeam": "SN",
-                "awayTeam": "CO",
-                "date": "2018-06-28T18:00:00+02:00"
-            }
-        ]
-    }
+  "groups": {
+    "A": [
+      {
+        "homeTeam": "RU",
+        "awayTeam": "SA",
+        "date": "2018-06-14T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "EG",
+        "awayTeam": "UY",
+        "date": "2018-06-15T17:00:00+05:00"
+      },
+      {
+        "homeTeam": "RU",
+        "awayTeam": "EG",
+        "date": "2018-06-19T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "UY",
+        "awayTeam": "SA",
+        "date": "2018-06-20T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "SA",
+        "awayTeam": "EG",
+        "date": "2018-06-25T17:00:00+04:00"
+      },
+      {
+        "homeTeam": "UY",
+        "awayTeam": "RU",
+        "date": "2018-06-25T18:00:00+03:00"
+      }
+    ],
+    "B": [
+      {
+        "homeTeam": "MA",
+        "awayTeam": "IR",
+        "date": "2018-06-15T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "PT",
+        "awayTeam": "ES",
+        "date": "2018-06-15T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "PT",
+        "awayTeam": "MA",
+        "date": "2018-06-20T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "IR",
+        "awayTeam": "ES",
+        "date": "2018-06-20T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "ES",
+        "awayTeam": "MA",
+        "date": "2018-06-25T20:00:00+03:00"
+      },
+      {
+        "homeTeam": "IR",
+        "awayTeam": "PT",
+        "date": "2018-06-25T21:00:00+02:00"
+      }
+    ],
+    "C": [
+      {
+        "homeTeam": "FR",
+        "awayTeam": "AU",
+        "date": "2018-06-16T13:00:00+03:00"
+      },
+      {
+        "homeTeam": "PE",
+        "awayTeam": "DK",
+        "date": "2018-06-16T19:00:00+03:00"
+      },
+      {
+        "homeTeam": "DK",
+        "awayTeam": "AU",
+        "date": "2018-06-21T16:00:00+04:00"
+      },
+      {
+        "homeTeam": "FR",
+        "awayTeam": "PE",
+        "date": "2018-06-21T20:00:00+05:00"
+      },
+      {
+        "homeTeam": "AU",
+        "awayTeam": "PE",
+        "date": "2018-06-26T17:00:00+03:00"
+      },
+      {
+        "homeTeam": "DK",
+        "awayTeam": "FR",
+        "date": "2018-06-26T17:00:00+03:00"
+      }
+    ],
+    "D": [
+      {
+        "homeTeam": "AR",
+        "awayTeam": "IS",
+        "date": "2018-06-16T16:00:00+03:00"
+      },
+      {
+        "homeTeam": "HR",
+        "awayTeam": "NG",
+        "date": "2018-06-16T21:00:00+02:00"
+      },
+      {
+        "homeTeam": "AR",
+        "awayTeam": "HR",
+        "date": "2018-06-21T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "NG",
+        "awayTeam": "IS",
+        "date": "2018-06-22T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "NG",
+        "awayTeam": "AR",
+        "date": "2018-06-26T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "IS",
+        "awayTeam": "HR",
+        "date": "2018-06-26T21:00:00+03:00"
+      }
+    ],
+    "E": [
+      {
+        "homeTeam": "CR",
+        "awayTeam": "RS",
+        "date": "2018-06-17T16:00:00+04:00"
+      },
+      {
+        "homeTeam": "BR",
+        "awayTeam": "CH",
+        "date": "2018-06-17T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "BR",
+        "awayTeam": "CR",
+        "date": "2018-06-22T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "RS",
+        "awayTeam": "CH",
+        "date": "2018-06-22T20:00:00+02:00"
+      },
+      {
+        "homeTeam": "RS",
+        "awayTeam": "BR",
+        "date": "2018-06-27T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "CH",
+        "awayTeam": "CR",
+        "date": "2018-06-27T21:00:00+03:00"
+      }
+    ],
+    "F": [
+      {
+        "homeTeam": "DE",
+        "awayTeam": "MX",
+        "date": "2018-06-17T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "SE",
+        "awayTeam": "KR",
+        "date": "2018-06-18T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "KR",
+        "awayTeam": "MX",
+        "date": "2018-06-23T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "DE",
+        "awayTeam": "SE",
+        "date": "2018-06-23T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "KR",
+        "awayTeam": "DE",
+        "date": "2018-06-27T17:00:00+03:00"
+      },
+      {
+        "homeTeam": "MX",
+        "awayTeam": "SE",
+        "date": "2018-06-27T19:00:00+05:00"
+      }
+    ],
+    "G": [
+      {
+        "homeTeam": "BE",
+        "awayTeam": "PA",
+        "date": "2018-06-18T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "TN",
+        "awayTeam": "GB-ENG",
+        "date": "2018-06-18T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "BE",
+        "awayTeam": "TN",
+        "date": "2018-06-23T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "GB-ENG",
+        "awayTeam": "PA",
+        "date": "2018-06-24T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "GB-ENG",
+        "awayTeam": "BE",
+        "date": "2018-06-28T20:00:00+02:00"
+      },
+      {
+        "homeTeam": "PA",
+        "awayTeam": "TN",
+        "date": "2018-06-28T21:00:00+03:00"
+      }
+    ],
+    "H": [
+      {
+        "homeTeam": "CO",
+        "awayTeam": "JP",
+        "date": "2018-06-19T15:00:00+03:00"
+      },
+      {
+        "homeTeam": "PL",
+        "awayTeam": "SN",
+        "date": "2018-06-19T18:00:00+03:00"
+      },
+      {
+        "homeTeam": "JP",
+        "awayTeam": "SN",
+        "date": "2018-06-24T20:00:00+05:00"
+      },
+      {
+        "homeTeam": "PL",
+        "awayTeam": "CO",
+        "date": "2018-06-24T21:00:00+03:00"
+      },
+      {
+        "homeTeam": "JP",
+        "awayTeam": "PL",
+        "date": "2018-06-28T17:00:00+03:00"
+      },
+      {
+        "homeTeam": "SN",
+        "awayTeam": "CO",
+        "date": "2018-06-28T18:00:00+04:00"
+      }
+    ]
+  },
+  "knockout": {
+    "16": [
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-06-30T17:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-06-30T21:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-01T17:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-01T21:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-02T18:00:00+04:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-02T21:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-03T17:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-03T21:00:00+03:00"
+      }
+    ],
+    "8": [
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-06T17:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-06T21:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-07T18:00:00+04:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-07T21:00:00+03:00"
+      }
+    ],
+    "4": [
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-10T21:00:00+03:00"
+      },
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-11T21:00:00+03:00"
+      }
+    ],
+    "2": [
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-14T17:00:00+03:00"
+      }
+    ],
+    "1": [
+      {
+        "homeTeam": null,
+        "awayTeam": null,
+        "date": "2018-07-15T18:00:00+03:00"
+      }
+    ]
+  }
 }

@@ -1,23 +1,44 @@
-function calculateGroupResults(results, groups, matches) {
+function getOutcome(matchResult) {
+    if (matchResult.homeScore === matchResult.awayScore) {
+        return 'draw';
+    } else if (matchResult.homeScore > matchResult.awayScore) {
+        return 'home';
+    } else {
+        return 'away';
+    }
+}
+
+function updateTeamResults(matchResult, homeTeam, awayTeam) {
+    homeTeam.goalsScored += matchResult.homeScore;
+    homeTeam.goalsAllowed += matchResult.awayScore;
+    awayTeam.goalsScored += matchResult.awayScore;
+    awayTeam.goalsAllowed += matchResult.homeScore;
+    const outcome = getOutcome(matchResult);
+    homeTeam.points += outcome === 'home' ? 3 : outcome === 'draw' ? 1 : 0;
+    awayTeam.points += outcome === 'away' ? 3 : outcome === 'draw' ? 1 : 0;
+}
+
+function calculateGroupResults(results, groups, matches, predictions) {
+    predictions = predictions || { groups: {} };
     const groupMapping = {};
     for (const groupName in results.groups) {
+        if (!(groupName in predictions.groups)) {
+            predictions.groups[groupName] = [];
+        }
         groupMapping[groupName] = {};
         for (const team of groups.filter(g => g.name === groupName)[0].teams) {
             groupMapping[groupName][team] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
         }
         let idx = 0;
-        for (const matchResult of results.groups[groupName]) {
-            if (matchResult !== null) {
+        for (let matchResult of results.groups[groupName]) {
+            if (!matchResult && groupName in predictions.groups) {
+                matchResult = predictions.groups[groupName][idx];
+            }
+            if (matchResult) {
                 const match = matches.groups[groupName][idx];
-                groupMapping[groupName][match.homeTeam].goalsScored += matchResult.homeScore;
-                groupMapping[groupName][match.homeTeam].goalsAllowed += matchResult.awayScore;
-                groupMapping[groupName][match.awayTeam].goalsScored += matchResult.awayScore;
-                groupMapping[groupName][match.awayTeam].goalsAllowed += matchResult.homeScore;
-                const outcome = matchResult.homeScore === matchResult.awayScore ?
-                    'draw' :
-                    matchResult.homeScore > matchResult.awayScore ? 'home' : 'away';
-                groupMapping[groupName][match.homeTeam].points += outcome === 'home' ? 3 : outcome === 'draw' ? 1 : 0;
-                groupMapping[groupName][match.awayTeam].points += outcome === 'away' ? 3 : outcome === 'draw' ? 1 : 0;
+                const homeTeam = groupMapping[groupName][match.homeTeam];
+                const awayTeam = groupMapping[groupName][match.awayTeam];
+                updateTeamResults(matchResult, homeTeam, awayTeam);
             }
             idx++;
         }
@@ -25,4 +46,9 @@ function calculateGroupResults(results, groups, matches) {
     return groupMapping;
 }
 
-module.exports = { calculateGroupResults };
+function calculateKnockout(results, groups, matches, predictions) {
+    const groupResults = calculateGroupResults(results, groups, matches, predictions);
+    return {};
+}
+
+module.exports = { calculateGroupResults, calculateKnockout };
