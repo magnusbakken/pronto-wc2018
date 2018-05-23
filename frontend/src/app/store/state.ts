@@ -3,7 +3,6 @@ import { Score } from "../api/api.service";
 
 export interface InitialState {
     groups: Group[];
-    matches: Match[];
     teams: Team[];
 }
 

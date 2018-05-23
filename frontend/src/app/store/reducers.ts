@@ -3,7 +3,6 @@ import { InitialState, PredictionState, ResultState } from "./state";
 
 export const EmptyInitialState: InitialState = {
     groups: [],
-    matches: [],
     teams: [],
 };
 
@@ -12,7 +11,6 @@ export function initialStateReducer(state: InitialState | undefined = EmptyIniti
         case InitialDataLoadedAction.type: {
             return {
                 groups: action.groups,
-                matches: action.matches,
                 teams: action.teams,
             };
         }

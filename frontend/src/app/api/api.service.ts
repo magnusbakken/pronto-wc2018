@@ -6,11 +6,13 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export type GroupData = { name: string, teams: string[] };
-export type MatchData = { homeTeam: string, awayTeam: string, date: string };
+export type SingleMatchData = { homeTeam: string, awayTeam: string, date: string };
+export type GroupMatchData = { [groupName: string]: SingleMatchData[] };
+export type MatchData = { groups: GroupMatchData };
 export type TeamData = { abbreviation: string, fullName: string };
 export interface InitialData {
     groups: GroupData[];
-    matches: MatchData[];
+    matches: MatchData;
     teams: TeamData[];
 }
 

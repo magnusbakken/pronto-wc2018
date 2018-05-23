@@ -4,7 +4,7 @@ import { combineLatest } from "rxjs";
 import { debounceTime, map, mapTo, switchMap } from "rxjs/operators";
 import { ofType } from "ts-action-operators";
 
-import { ApiService, GroupData, MatchData, TeamData, InitialData } from "../api/api.service";
+import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchData } from "../api/api.service";
 import { Group, Match, Team } from "../models";
 import {
     ChangePredictionsAction,
@@ -70,14 +70,24 @@ function getInitialState(initialData: InitialData): InitialState {
     const teamMapping = new Map(initialData.teams.map(x => [x.abbreviation, x] as [string, TeamData]));
     const matches = parseMatches(initialData.matches, teamMapping);
     const groups = parseGroups(initialData.groups, teamMapping, matches);
-    return { groups, matches, teams };
+    return { groups, teams };
 }
 
 function parseTeams(teamData: TeamData[]): Team[] {
     return teamData.map(x => ({ abbreviation: x.abbreviation, fullName: x.fullName }));
 }
 
-function parseMatches(matchData: MatchData[], teamMapping: Map<string, Team>): Match[] {
+function parseMatches(matchData: MatchData, teamMapping: Map<string, Team>): { [groupName: string]: Match[] } {
+    const result: { [groupName: string]: Match[] } = {};
+    for (const groupName in matchData.groups) {
+        if (matchData.groups.hasOwnProperty(groupName)) {
+            result[groupName] = parseGroupMatches(matchData.groups[groupName], teamMapping);
+        }
+    }
+    return result;
+}
+
+function parseGroupMatches(matchData: SingleMatchData[], teamMapping: Map<string, Team>): Match[] {
     return matchData.map(x => {
         const homeTeam = teamMapping.get(x.homeTeam);
         const awayTeam = teamMapping.get(x.awayTeam);
@@ -94,7 +104,7 @@ function parseMatches(matchData: MatchData[], teamMapping: Map<string, Team>): M
     });
 }
 
-function parseGroups(groupData: GroupData[], teamMapping: Map<string, Team>, matches: Match[]): Group[] {
+function parseGroups(groupData: GroupData[], teamMapping: Map<string, Team>, matches: { [groupName: string]: Match[] }): Group[] {
     return groupData.map(x => ({
         name: x.name,
         teams: x.teams.map(t => {
@@ -104,6 +114,6 @@ function parseGroups(groupData: GroupData[], teamMapping: Map<string, Team>, mat
             }
             return team;
         }),
-        matches: matches.filter(m => x.teams.includes(m.homeTeam.abbreviation) || x.teams.includes(m.awayTeam.abbreviation)),
+        matches: matches[x.name],
     }));
 }
