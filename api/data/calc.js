@@ -103,9 +103,47 @@ function calculateGroupResults(results, groups, matches, predictions) {
   return groupMapping;
 }
 
-function calculateKnockout(results, groups, matches, predictions) {
+function mergeKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predictedAwayTeam) {
+  return {
+    homeTeam: actualKnockoutMatch.homeTeam || predictedHomeTeam,
+    awayTeam: actualKnockoutMatch.awayTeam || predictedAwayTeam,
+    date: actualKnockoutMatch.date,
+  };
+}
+
+function predictedKnockoutWinner(round, idx, matches, predictions) {
+  return 
+}
+
+function calculateKnockoutBracket(results, groups, matches, predictions) {
   const groupResults = calculateGroupResults(results, groups, matches, predictions);
-  return {};
+  const actualKnockout = matches.knockout;
+  const predicted16 = [
+    mergeKnockoutMatch(actualKnockout['16'][0], groupResults['A'][0], groupResults['B'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][1], groupResults['C'][0], groupResults['D'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][2], groupResults['E'][0], groupResults['F'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][3], groupResults['G'][0], groupResults['H'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][4], groupResults['B'][0], groupResults['A'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][5], groupResults['D'][0], groupResults['C'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][6], groupResults['F'][0], groupResults['E'][1]),
+    mergeKnockoutMatch(actualKnockout['16'][7], groupResults['H'][0], groupResults['G'][1]),
+  ];
+  const predicted8 = [
+    mergeKnockoutMatch(actualKnockout['8'][0], predictions.knockout['16'][0], predictions.knockout['16'][1]),
+    mergeKnockoutMatch(actualKnockout['8'][1], predictions.knockout['16'][2], predictions.knockout['16'][3]),
+    mergeKnockoutMatch(actualKnockout['8'][2], predictions.knockout['16'][4], predictions.knockout['16'][5]),
+    mergeKnockoutMatch(actualKnockout['8'][3], predictions.knockout['16'][6], predictions.knockout['16'][7]),
+  ];
+  const predicted4 = [
+    mergeKnockoutMatch(actualKnockout['4'][0], predictions.knockout['8'][0], predictions.knockout['8'][1]),
+    mergeKnockoutMatch(actualKnockout['4'][1], predictions.knockout['8'][2], predictions.knockout['8'][3]),
+  ];
+  const predicted2 = [
+    mergeKnockoutMatch(actualKnockout['2'][0], predictions.knockout['4'][0], predictions.knockout['4'][1]),
+  ];
+  const predicted1 = [
+    mergeKnockoutMatch(actualKnockout['1'][0], predictions.knockout['4'][0], predictions.knockout['4'][1]),
+  ];
 }
 
 module.exports = { calculateGroupResults, calculateKnockout };
