@@ -8,6 +8,7 @@ const cors = require('cors');
 const initialRouter = require('./routes/initial');
 const predictionRouter = require('./routes/predictions');
 const resultRouter = require('./routes/results');
+const knockoutRouter = require('./routes/knockout');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(cors(corsOptions));
 app.use('/initial', initialRouter);
 app.use('/predictions', predictionRouter);
 app.use('/results', resultRouter);
+app.use('/knockout', knockoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

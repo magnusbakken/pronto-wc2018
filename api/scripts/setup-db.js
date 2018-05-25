@@ -81,5 +81,33 @@ db.exec(`INSERT INTO predictions (username, value) values ('dummyuser', '{
       { "homeScore": 2, "awayScore": 3 },
       { "homeScore": 2, "awayScore": 5 }
     ]
+  },
+  "knockout": {
+    "16": [
+      { "homeScore": 2, "awayScore": 4 },
+      { "homeScore": 2, "awayScore": 0 },
+      { "homeScore": 0, "awayScore": 1 },
+      { "homeScore": 3, "awayScore": 4 },
+      { "homeScore": 3, "awayScore": 1 },
+      { "homeScore": 3, "awayScore": 4 },
+      { "homeScore": 3, "awayScore": 4 },
+      { "homeScore": 4, "awayScore": 3 }
+    ],
+    "8": [
+      { "homeScore": 5, "awayScore": 2 },
+      { "homeScore": 5, "awayScore": 4 },
+      { "homeScore": 0, "awayScore": 5 },
+      { "homeScore": 1, "awayScore": 4 }
+    ],
+    "4": [
+      { "homeScore": 2, "awayScore": 3 },
+      { "homeScore": 4, "awayScore": 1 }
+    ],
+    "2": [
+      { "homeScore": 1, "awayScore": 4 }
+    ],
+    "1": [
+      { "homeScore": 5, "awayScore": 4 }
+    ]
   }
 }')`);
