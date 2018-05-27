@@ -7,6 +7,9 @@ import { GroupTeamResult } from '../store';
 interface TeamRow {
   team: Team;
   points: number;
+  wins: number;
+  draws: number;
+  losses: number;
   goalsScored: number;
   goalsAllowed: number;
 }
@@ -22,13 +25,13 @@ export class GroupTableComponent implements OnChanges {
 
   public dataSource: MatTableDataSource<TeamRow>;
 
+  public readonly columns = ['team', 'wins', 'draws', 'losses', 'goals', 'points'];
+
   public ngOnChanges(changes: SimpleChanges): void {
     if (this.group && this.groupResults && this.groupResults.length > 0) {
       this.dataSource = new MatTableDataSource<TeamRow>(this.groupResults.map(gr => ({
+        ...gr,
         team: this.group.teams.find(t => t.abbreviation === gr.team),
-        points: gr.points,
-        goalsScored: gr.goalsScored,
-        goalsAllowed: gr.goalsAllowed,
       })));
     }
   }

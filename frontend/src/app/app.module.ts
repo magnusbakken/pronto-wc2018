@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatButtonModule,
     MatButtonToggleModule,
@@ -9,6 +10,7 @@ import {
     MatIconModule,
     MatInputModule,
     MatTableModule,
+    MatTooltipModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -47,6 +49,7 @@ const reducers: ActionReducerMap<AppState> = {
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
@@ -61,6 +64,7 @@ const reducers: ActionReducerMap<AppState> = {
         MatIconModule,
         MatInputModule,
         MatTableModule,
+        MatTooltipModule,
     ],
     declarations: [
         AppComponent,

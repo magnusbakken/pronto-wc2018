@@ -1,0 +1,27 @@
+.mat-table {
+    text-align: left;
+}
+
+.mat-cell {
+    vertical-align: middle;
+}
+
+.header-row {
+    height: 20px;
+}
+
+.mat-column-team {
+    width: 150px;
+}
+
+.mat-column-wins, .mat-column-draws, .mat-column-losses {
+    width: 30px;
+}
+
+.mat-column-goals {
+    width: 50px;
+}
+
+.mat-column-points {
+    width: 40px;
+}

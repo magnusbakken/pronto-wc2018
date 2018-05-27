@@ -21,6 +21,9 @@ export interface GroupTeamResult {
     points: number;
     goalsScored: number;
     goalsAllowed: number;
+    wins: number;
+    draws: number;
+    losses: number;
 }
 
 export interface GroupResultState {
