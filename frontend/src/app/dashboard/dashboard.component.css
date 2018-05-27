@@ -10,10 +10,10 @@
   bottom: 15px;
 }
 
-.more-button {
+.toggle-buttons {
   position: absolute;
   top: 5px;
-  right: 10px;
+  right: 5px;
 }
 
 .dashboard-card-content {

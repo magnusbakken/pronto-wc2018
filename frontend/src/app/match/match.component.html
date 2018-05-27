@@ -1,4 +1,5 @@
 <div *ngIf="match" [formGroup]="formGroup">
+  <span class="date">{{ match.date | date:'d. MMM HH:mm z' }}</span>
   <app-team [team]="match.homeTeam" [showName]="true"></app-team>
   <input matInput type="number" formControlName="homeScore"
     [ngClass]="{ 'score-field': true, 'correct': homeScoreCorrect === true, 'incorrect': homeScoreCorrect === false }"

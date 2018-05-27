@@ -8,12 +8,15 @@
             <mat-card-header>
               <mat-card-title>
                 Group {{group.name}}
-                <mat-button-toggle-group [value]="groupDisplays[group.name]" (change)="singleGroupDisplayChanged(group.name, $event.value)">
+                <mat-button-toggle-group
+                  class="toggle-buttons"
+                  [value]="groupDisplays[group.name]"
+                  (change)="singleGroupDisplayChanged(group.name, $event.value)">
                   <mat-button-toggle value="matches">
-                    <mat-icon>list</mat-icon> Matches
+                    <mat-icon>schedule</mat-icon> Matches
                   </mat-button-toggle>
                   <mat-button-toggle value="table">
-                    <mat-icon>table_chart</mat-icon> Standings
+                    <mat-icon>list</mat-icon> Standings
                   </mat-button-toggle>
                 </mat-button-toggle-group>
               </mat-card-title>
