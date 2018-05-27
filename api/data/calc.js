@@ -18,7 +18,7 @@ function updateTeamResults(matchResult, homeTeam, awayTeam) {
   awayTeam.points += outcome === 'away' ? 3 : outcome === 'draw' ? 1 : 0;
 }
 
-function compareTeams(team1, team2) {
+function compareTeams(team1, team2, fallbackToAlphanumeric = false) {
   const pointDiff = team2.points - team1.points;
   if (pointDiff !== 0) {
     return pointDiff;
@@ -27,18 +27,48 @@ function compareTeams(team1, team2) {
   if (goalDiff !== 0) {
     return goalDiff;
   }
-  return team2.goalsScored - team1.goalsScored;
+  const goalAmountDiff = team2.goalsScored - team1.goalsScored;
+  if (goalAmountDiff !== 0) {
+    return goalAmountDiff;
+  }
+  return fallbackToAlphanumeric ? team2.team < team1.team : 0;
 }
 
-function breakTie(teams, results, matches, predictions) {
-  // TODO: fix
-  if (teams.length === 4) {
-    return [0, 1, 2, 3];
-  }
+function breakAdvancedTie(teams, otherTeamsWithSamePoints, results, matches, predictions) {
   const teamNames = teams.map(t => t.team);
-  result = [];
-  for (let idx = 0; idx < teams.length; idx++) {
-    result.push(idx);
+  const otherTeamNames = otherTeamsWithSamePoints.map(t => t.team);
+  const relevantMatches = matches
+    .map((m, idx) => [m, idx])
+    .filter(([m, idx]) => {
+      return (teamNames.includes(m.homeTeam) || otherTeamNames.includes(m.homeTeam)) &&
+        (teamNames.includes(m.awayTeam) || otherTeamNames.includes(m.awayTeam));
+    });
+  const internalTable = {};
+  for (const [match, index] of relevantMatches) {
+    if (!(match.homeTeam in internalTable)) {
+      internalTable[match.homeTeam] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
+    }
+    if (!(match.awayTeam in internalTable)) {
+      internalTable[match.awayTeam] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
+    }
+    const matchResult = results[index] || predictions[index] || { homeScore: 0, awayScore: 0 };
+    updateTeamResults(matchResult, internalTable[match.homeTeam], internalTable[match.awayTeam]);
+  }
+  const newTable = [];
+  for (const team in internalTable) {
+    if (teamNames.includes(team)) {
+      newTable.push({
+        team: team,
+        points: internalTable[team].points,
+        goalsScored: internalTable[team].goalsScored,
+        goalsAllowed: internalTable[team].goalsAllowed,
+      });
+    }
+  }
+  newTable.sort((x, y) => compareTeams(x, y, true));
+  const result = [];
+  for (const team of newTable) {
+    result.push(teams.findIndex(t => t.team === team.team));
   }
   return result;
 }
@@ -56,7 +86,9 @@ function calculateGroupOrder(groupResults, results, matches, predictions) {
       tieBreakIdx++;
     }
     if (tieBreakIdx > idx) {
-      const tieBrokenOrder = breakTie(ordered.slice(idx, tieBreakIdx + 1), results, matches, predictions);
+      const tieBreakTeams = ordered.slice(idx, tieBreakIdx + 1);
+      const otherTeamsOnSamePoints = ordered.filter(t => t.points === tieBreakTeams[0].points && !tieBreakTeams.some(tbt => tbt.team === t.team));
+      const tieBrokenOrder = breakAdvancedTie(tieBreakTeams, otherTeamsOnSamePoints, results, matches, predictions);
       let newIdx = idx;
       for (const tieBrokenIdx of tieBrokenOrder) {
         finalResults[newIdx++] = ordered[idx + tieBrokenIdx];
