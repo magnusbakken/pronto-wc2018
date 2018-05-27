@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatMenuModule,
+    MatTableModule,
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -23,13 +24,23 @@ import { GroupComponent } from './group/group.component';
 import { MatchComponent } from './match/match.component';
 import { TeamComponent } from './team/team.component';
 
-import { AppEffects, AppState, initialStateReducer, predictionStateReducer, resultStateReducer, knockoutStateReducer } from './store';
+import {
+    AppEffects,
+    AppState,
+    groupResultStateReducer,
+    initialStateReducer,
+    knockoutStateReducer,
+    predictionStateReducer,
+    resultStateReducer,
+} from './store';
 import { KnockoutComponent } from './knockout/knockout.component';
+import { GroupTableComponent } from './group-table/group-table.component';
 
 const reducers: ActionReducerMap<AppState> = {
     initial: initialStateReducer,
     predictions: predictionStateReducer,
     results: resultStateReducer,
+    groupResults: groupResultStateReducer,
     knockout: knockoutStateReducer,
 };
 
@@ -44,11 +55,12 @@ const reducers: ActionReducerMap<AppState> = {
         environment.production ? [] : StoreDevtoolsModule.instrument({ maxAge: 100 }),
 
         MatButtonModule,
+        MatButtonToggleModule,
         MatCardModule,
         MatGridListModule,
         MatIconModule,
         MatInputModule,
-        MatMenuModule,
+        MatTableModule,
     ],
     declarations: [
         AppComponent,
@@ -56,7 +68,8 @@ const reducers: ActionReducerMap<AppState> = {
         GroupComponent,
         TeamComponent,
         MatchComponent,
-        KnockoutComponent
+        KnockoutComponent,
+        GroupTableComponent
     ],
     bootstrap: [AppComponent]
 })

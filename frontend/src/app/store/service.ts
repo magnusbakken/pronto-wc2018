@@ -17,6 +17,7 @@ export class AppService {
     public readonly initialData$ = this.store.pipe(select(s => s.initial));
     public readonly predictions$ = this.store.pipe(select(s => s.predictions));
     public readonly results$ = this.store.pipe(select(s => s.results));
+    public readonly groupResults$ = this.store.pipe(select(s => s.groupResults));
     public readonly knockout$ = this.store.pipe(select(s => s.knockout));
 
     public constructor(private store: Store<AppState>) { }

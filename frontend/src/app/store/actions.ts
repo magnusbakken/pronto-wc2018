@@ -1,6 +1,6 @@
 import { action, props, union } from "ts-action";
 
-import { InitialState, KnockoutState, PredictionState, ResultState } from "./state";
+import { InitialState, KnockoutState, PredictionState, ResultState, GroupResultState } from "./state";
 
 export const LoadInitialDataAction = action("LOAD_INITIAL");
 export const InitialDataLoadedAction = action("INITIAL_DATA_LOADED", props<InitialState>());
@@ -15,6 +15,9 @@ export const PredictionsSavedAction = action("PREDICTIONS_SAVED");
 export const LoadResultsAction = action("LOAD_RESULTS");
 export const ResultsLoadedAction = action("RESULTS_LOADED", props<ResultState>());
 
+export const LoadGroupResultsAction = action("LOAD_GROUP_RESULTS");
+export const GroupResultsLoadedAction = action("GROUP_RESULTS_LOADED", props<GroupResultState>())
+
 export const LoadKnockoutAction = action("LOAD_KNOCKOUT");
 export const KnockoutLoadedAction = action("KNOCKOUT_LOADED", props<KnockoutState>());
 
@@ -28,6 +31,8 @@ export const AllActions = union({
     PredictionsSavedAction,
     LoadResultsAction,
     ResultsLoadedAction,
+    LoadGroupResultsAction,
+    GroupResultsLoadedAction,
     LoadKnockoutAction,
     KnockoutLoadedAction,
 });

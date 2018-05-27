@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { nameof, toObject } from "../../utils";
 import { Group } from '../models';
-import { PredictionState, ResultState, KnockoutState } from '../store';
+import { PredictionState, ResultState, KnockoutState, GroupResultState } from '../store';
 import { debounceTime, distinctUntilChanged, filter, distinct } from 'rxjs/operators';
 import { PropertyBindingType } from '@angular/compiler';
 
@@ -16,11 +16,13 @@ export class DashboardComponent implements OnChanges {
     @Input() public groups: Group[];
     @Input() public predictions: PredictionState;
     @Input() public results: ResultState;
+    @Input() public groupResults: GroupResultState;
     @Input() public knockout: KnockoutState;
 
     @Output() public readonly predictionsChanged = new EventEmitter<PredictionState>();
     
     public formGroup: FormGroup;
+    public groupDisplays: { [groupName: string]: "matches" | "table" } = {};
 
     private hasGroups: boolean = false;
     private hasPredictions: boolean = false;
@@ -32,6 +34,9 @@ export class DashboardComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (nameof<DashboardComponent>("groups") in changes && !changes.groups.firstChange) {
             this.hasGroups = true;
+            for (const groupName of this.groups.map(g => g.name)) {
+                this.groupDisplays[groupName] = "matches";
+            }
         }
         if (nameof<DashboardComponent>("predictions") in changes && !changes.predictions.firstChange) {
             this.hasPredictions = true;
@@ -60,6 +65,10 @@ export class DashboardComponent implements OnChanges {
                 debounceTime(1000),
             ).subscribe(s => this.predictionsChanged.emit(s));
         }
+    }
+
+    public singleGroupDisplayChanged(groupName: string, newValue: "matches" | "table"): void {
+        this.groupDisplays[groupName] = newValue;
     }
 
     private createGroupFormArray(group: Group): FormArray {

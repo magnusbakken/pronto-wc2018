@@ -22,9 +22,20 @@ export interface Score {
     awayScore: number;
 }
 
+export interface GroupTeamResult {
+    team: string;
+    points: number;
+    goalsScored: number;
+    goalsAllowed: number;
+}
+
 export interface ResultData {
     groups: { [groupName: string]: Array<Score | null> };
     knockout: { [round: string]: Array<Score | null> };
+}
+
+export interface GroupResultData {
+    groupResults: { [groupName: string]: GroupTeamResult[] };
 }
 
 export interface KnockoutData {
@@ -56,6 +67,10 @@ export class ApiService {
 
     public getResults(): Observable<ResultData> {
         return this.http.get(`${environment.apiUrl}results`).pipe(map(a => a as ResultData));
+    }
+
+    public getGroupResults(): Observable<GroupResultData> {
+        return this.http.get(`${environment.apiUrl}results/groups?include_predictions=true`).pipe(map(a => a as GroupResultData));
     }
 
     public getKnockout(): Observable<KnockoutData> {

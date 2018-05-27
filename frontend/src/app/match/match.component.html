@@ -1,9 +1,13 @@
 <div *ngIf="match" [formGroup]="formGroup">
   <app-team [team]="match.homeTeam" [showName]="true"></app-team>
-  <input matInput type="number" formControlName="homeScore" [ngClass]="{ 'score-field': true, 'correct': homeScoreCorrect === true, 'incorrect': homeScoreCorrect === false }">
+  <input matInput type="number" formControlName="homeScore"
+    [ngClass]="{ 'score-field': true, 'correct': homeScoreCorrect === true, 'incorrect': homeScoreCorrect === false }"
+    [min]="0">
   <span *ngIf="result !== null" class="result">{{ result.homeScore }}</span>
   -
   <span *ngIf="result !== null" class="result">{{ result.awayScore }}</span>
-  <input matInput type="number" formControlName="awayScore" [ngClass]="{ 'score-field': true, 'correct': awayScoreCorrect === true, 'incorrect': awayScoreCorrect === false }">
+  <input matInput type="number" formControlName="awayScore"
+    [ngClass]="{ 'score-field': true, 'correct': awayScoreCorrect === true, 'incorrect': awayScoreCorrect === false }"
+    [min]="0">
   <app-team [team]="match.awayTeam" [showName]="true"></app-team>
 </div>

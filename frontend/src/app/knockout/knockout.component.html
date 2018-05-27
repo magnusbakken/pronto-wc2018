@@ -2,7 +2,6 @@
   <div *ngFor="let round of rounds">
     {{ roundNameMappings[round] }}
     <div *ngFor="let match of knockout[round]; let idx = index">
-      {{ idx }}
       <app-match
         [formGroup]="formGroup.controls[round].controls[idx]"
         [match]="match"

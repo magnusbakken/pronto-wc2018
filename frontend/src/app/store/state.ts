@@ -16,6 +16,17 @@ export interface ResultState {
     knockout: { [round: string]: Array<Score | null> };
 }
 
+export interface GroupTeamResult {
+    team: string;
+    points: number;
+    goalsScored: number;
+    goalsAllowed: number;
+}
+
+export interface GroupResultState {
+    groupResults: { [groupName: string]: GroupTeamResult[] }
+}
+
 export interface KnockoutState {
     knockout: { [round: string]: UncertainMatch[] };
 }
@@ -23,6 +34,7 @@ export interface KnockoutState {
 export interface AppState {
     initial: InitialState;
     predictions: PredictionState;
+    groupResults: GroupResultState;
     results: ResultState;
     knockout: KnockoutState;
 }

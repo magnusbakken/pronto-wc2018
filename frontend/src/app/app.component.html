@@ -3,6 +3,7 @@
   [groups]="initialData.groups"
   [predictions]="service.predictions$ | async"
   [results]="service.results$ | async"
+  [groupResults]="service.groupResults$ | async"
   [knockout]="service.knockout$ | async"
   (predictionsChanged)="service.changePredictions($event)">
 </app-dashboard>

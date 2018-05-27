@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
+import { Store, select } from "@ngrx/store";
+import { of, concat } from "rxjs";
 import { debounceTime, map, mapTo, switchMap, combineLatest, tap, flatMap } from "rxjs/operators";
 import { ofType } from "ts-action-operators";
 
@@ -7,21 +9,21 @@ import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchDat
 import { Group, Match, Team } from "../models";
 import {
     ChangePredictionsAction,
+    GroupResultsLoadedAction,
     InitialDataLoadedAction,
+    KnockoutLoadedAction,
+    LoadGroupResultsAction,
     LoadInitialDataAction,
+    LoadKnockoutAction,
     LoadPredictionsAction,
     LoadResultsAction,
     PredictionsLoadedAction,
     PredictionsSavedAction,
     ResultsLoadedAction,
     SavePredictionsAction,
-    LoadKnockoutAction,
-    KnockoutLoadedAction,
 } from "./actions";
 import { InitialState, AppState, KnockoutState } from "./state";
-import { Store, select } from "@ngrx/store";
 import { AppService } from "./service";
-import { of, concat } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +43,7 @@ export class AppEffects {
         flatMap(_ => concat(
             of(new LoadPredictionsAction()),
             of(new LoadResultsAction()),
+            of(new LoadGroupResultsAction()),
             of(new LoadKnockoutAction()),
         )),
     );
@@ -77,6 +80,14 @@ export class AppEffects {
     );
 
     @Effect()
+    public readonly loadGroupResults = this.actions$.pipe(
+        ofType(LoadGroupResultsAction),
+        switchMap(_ => this.api.getGroupResults().pipe(
+            map(data => new GroupResultsLoadedAction(data)),
+        ))
+    )
+
+    @Effect()
     public readonly loadKnockout = this.actions$.pipe(
         ofType(LoadKnockoutAction),
         switchMap(_ => this.api.getKnockout().pipe(
@@ -86,9 +97,12 @@ export class AppEffects {
     );
 
     @Effect()
-    public readonly reloadKnockout = this.actions$.pipe(
+    public readonly reloadForPredictions = this.actions$.pipe(
         ofType(PredictionsSavedAction),
-        mapTo(new LoadKnockoutAction()),
+        flatMap(_ => concat(
+            of(new LoadGroupResultsAction()),
+            of(new LoadKnockoutAction()),
+        )),
     )
 
     public constructor(
