@@ -1,5 +1,5 @@
-import { Team } from "./team";
-import { Match } from "./match";
+import { Team } from './team';
+import { Match } from './match';
 
 export interface Group {
     name: string;

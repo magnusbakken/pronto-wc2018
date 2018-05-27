@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { select, Store } from "@ngrx/store";
+import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 
 import {
     ChangePredictionsAction,
@@ -7,8 +7,8 @@ import {
     LoadPredictionsAction,
     LoadResultsAction,
     LoadKnockoutAction,
-} from "./actions";
-import { AppState, PredictionState } from "./state";
+} from './actions';
+import { AppState, PredictionState } from './state';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +27,6 @@ export class AppService {
     }
 
     public changePredictions(predictions: PredictionState): void {
-        this.store.dispatch(new ChangePredictionsAction(predictions))
+        this.store.dispatch(new ChangePredictionsAction(predictions));
     }
 }

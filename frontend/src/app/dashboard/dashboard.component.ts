@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { nameof, toObject } from "../../utils";
+import { nameof, toObject } from '../../utils';
 import { Group } from '../models';
 import { PredictionState, ResultState, KnockoutState, GroupResultState } from '../store';
 import { debounceTime, distinctUntilChanged, filter, distinct } from 'rxjs/operators';
@@ -20,31 +20,31 @@ export class DashboardComponent implements OnChanges {
     @Input() public knockout: KnockoutState;
 
     @Output() public readonly predictionsChanged = new EventEmitter<PredictionState>();
-    
-    public formGroup: FormGroup;
-    public groupDisplays: { [groupName: string]: "matches" | "table" } = {};
 
-    private hasGroups: boolean = false;
-    private hasPredictions: boolean = false;
-    private hasResults: boolean = false;
-    private hasKnockout: boolean = false;
+    public formGroup: FormGroup;
+    public groupDisplays: { [groupName: string]: 'matches' | 'table' } = {};
+
+    private hasGroups = false;
+    private hasPredictions = false;
+    private hasResults = false;
+    private hasKnockout = false;
 
     public constructor(private fb: FormBuilder) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (nameof<DashboardComponent>("groups") in changes && !changes.groups.firstChange) {
+        if (nameof<DashboardComponent>('groups') in changes && !changes.groups.firstChange) {
             this.hasGroups = true;
             for (const groupName of this.groups.map(g => g.name)) {
-                this.groupDisplays[groupName] = "matches";
+                this.groupDisplays[groupName] = 'matches';
             }
         }
-        if (nameof<DashboardComponent>("predictions") in changes && !changes.predictions.firstChange) {
+        if (nameof<DashboardComponent>('predictions') in changes && !changes.predictions.firstChange) {
             this.hasPredictions = true;
         }
-        if (nameof<DashboardComponent>("results") in changes && !changes.results.firstChange) {
+        if (nameof<DashboardComponent>('results') in changes && !changes.results.firstChange) {
             this.hasResults = true;
         }
-        if (nameof<DashboardComponent>("knockout") in changes && !changes.knockout.firstChange) {
+        if (nameof<DashboardComponent>('knockout') in changes && !changes.knockout.firstChange) {
             this.hasKnockout = true;
         }
         if (this.hasGroups && this.hasPredictions && this.hasResults && this.hasKnockout && !this.formGroup) {
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnChanges {
         }
     }
 
-    public singleGroupDisplayChanged(groupName: string, newValue: "matches" | "table"): void {
+    public singleGroupDisplayChanged(groupName: string, newValue: 'matches' | 'table'): void {
         this.groupDisplays[groupName] = newValue;
     }
 
@@ -80,7 +80,7 @@ export class DashboardComponent implements OnChanges {
     }
 
     private createGroupMatchGroup(groupName: string, matchIndex: number): FormGroup {
-        const prediction = (this.predictions.groups[groupName] || [])[matchIndex] || { homeScore: "", awayScore: "" };
+        const prediction = (this.predictions.groups[groupName] || [])[matchIndex] || { homeScore: '', awayScore: '' };
         const hasResult = this.results.groups[groupName][matchIndex] !== null;
         return this.fb.group({
             homeScore: this.fb.control({ value: prediction.homeScore, disabled: hasResult }),
@@ -99,7 +99,7 @@ export class DashboardComponent implements OnChanges {
     }
 
     private createKnockoutMatchGroup(roundName: string, matchIndex: number): FormGroup {
-        const prediction = (this.predictions.knockout[roundName] || [])[matchIndex] || { homeScore: "", awayScore: "" };
+        const prediction = (this.predictions.knockout[roundName] || [])[matchIndex] || { homeScore: '', awayScore: '' };
         const hasResult = this.results.knockout[roundName][matchIndex] !== null;
         return this.fb.group({
             homeScore: this.fb.control({ value: prediction.homeScore, disabled: hasResult }),

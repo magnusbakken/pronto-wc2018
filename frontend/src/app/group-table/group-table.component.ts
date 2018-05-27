@@ -19,7 +19,7 @@ interface TeamRow {
 export class GroupTableComponent implements OnChanges {
   @Input() public group: Group;
   @Input() public groupResults: GroupTeamResult[];
-  
+
   public dataSource: MatTableDataSource<TeamRow>;
 
   public ngOnChanges(changes: SimpleChanges): void {

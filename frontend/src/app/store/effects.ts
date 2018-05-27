@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Actions, Effect } from "@ngrx/effects";
-import { Store, select } from "@ngrx/store";
-import { of, concat } from "rxjs";
-import { debounceTime, map, mapTo, switchMap, combineLatest, tap, flatMap } from "rxjs/operators";
-import { ofType } from "ts-action-operators";
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+import { Store, select } from '@ngrx/store';
+import { of, concat } from 'rxjs';
+import { debounceTime, map, mapTo, switchMap, combineLatest, tap, flatMap } from 'rxjs/operators';
+import { ofType } from 'ts-action-operators';
 
-import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchData, KnockoutData } from "../api/api.service";
-import { Group, Match, Team } from "../models";
+import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchData, KnockoutData } from '../api/api.service';
+import { Group, Match, Team } from '../models';
 import {
     ChangePredictionsAction,
     GroupResultsLoadedAction,
@@ -21,9 +21,9 @@ import {
     PredictionsSavedAction,
     ResultsLoadedAction,
     SavePredictionsAction,
-} from "./actions";
-import { InitialState, AppState, KnockoutState } from "./state";
-import { AppService } from "./service";
+} from './actions';
+import { InitialState, AppState, KnockoutState } from './state';
+import { AppService } from './service';
 
 @Injectable({
     providedIn: 'root'
@@ -85,7 +85,7 @@ export class AppEffects {
         switchMap(_ => this.api.getGroupResults().pipe(
             map(data => new GroupResultsLoadedAction(data)),
         ))
-    )
+    );
 
     @Effect()
     public readonly loadKnockout = this.actions$.pipe(
@@ -103,7 +103,7 @@ export class AppEffects {
             of(new LoadGroupResultsAction()),
             of(new LoadKnockoutAction()),
         )),
-    )
+    );
 
     public constructor(
         private actions$: Actions,

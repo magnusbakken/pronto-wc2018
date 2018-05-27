@@ -1,5 +1,13 @@
-import { AllActions, ChangePredictionsAction, InitialDataLoadedAction, PredictionsLoadedAction, ResultsLoadedAction, KnockoutLoadedAction, GroupResultsLoadedAction } from "./actions";
-import { InitialState, PredictionState, ResultState, KnockoutState, GroupResultState } from "./state";
+import {
+    AllActions,
+    ChangePredictionsAction,
+    InitialDataLoadedAction,
+    PredictionsLoadedAction,
+    ResultsLoadedAction,
+    KnockoutLoadedAction,
+    GroupResultsLoadedAction,
+} from './actions';
+import { InitialState, PredictionState, ResultState, KnockoutState, GroupResultState } from './state';
 
 export const EmptyInitialState: InitialState = {
     groups: [],
@@ -89,7 +97,7 @@ export function knockoutStateReducer(state: KnockoutState | undefined = EmptyKno
     switch (action.type) {
         case KnockoutLoadedAction.type: {
             return {
-                knockout: action.knockout,  
+                knockout: action.knockout,
             };
         }
         default: {

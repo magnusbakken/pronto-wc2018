@@ -1,5 +1,5 @@
-import { Group, Match, Team, UncertainMatch } from "../models";
-import { Score } from "../api/api.service";
+import { Group, Match, Team, UncertainMatch } from '../models';
+import { Score } from '../api/api.service';
 
 export interface InitialState {
     groups: Group[];
@@ -24,7 +24,7 @@ export interface GroupTeamResult {
 }
 
 export interface GroupResultState {
-    groupResults: { [groupName: string]: GroupTeamResult[] }
+    groupResults: { [groupName: string]: GroupTeamResult[] };
 }
 
 export interface KnockoutState {

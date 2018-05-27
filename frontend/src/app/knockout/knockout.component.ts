@@ -18,7 +18,7 @@ export class KnockoutComponent implements OnChanges {
   @Input() public results: { [round: string]: Array<Score | null> };
 
   public rounds: string[] = [];
-  
+
   public readonly roundNameMappings = {
     '16': 'Round of 16',
     '8': 'Quarter-finals',

@@ -9,7 +9,7 @@ import { AppService } from './store';
 })
 export class AppComponent implements OnInit {
     public constructor(public service: AppService) { }
-    
+
     public ngOnInit(): void {
         this.service.loadInitialData();
     }

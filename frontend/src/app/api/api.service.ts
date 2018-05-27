@@ -5,12 +5,12 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
-export type GroupData = { name: string, teams: string[] };
-export type SingleMatchData = { homeTeam: string, awayTeam: string, date: string };
-export type UncertainMatchData = { homeTeam: string | null, awayTeam: string | null, date: string };
-export type GroupMatchData = { [groupName: string]: SingleMatchData[] };
-export type MatchData = { groups: GroupMatchData };
-export type TeamData = { abbreviation: string, fullName: string };
+export interface GroupData { name: string; teams: string[]; }
+export interface SingleMatchData { homeTeam: string; awayTeam: string; date: string; }
+export interface UncertainMatchData { homeTeam: string | null; awayTeam: string | null; date: string; }
+export interface GroupMatchData { [groupName: string]: SingleMatchData[]; }
+export interface MatchData { groups: GroupMatchData; }
+export interface TeamData { abbreviation: string; fullName: string; }
 export interface InitialData {
     groups: GroupData[];
     matches: MatchData;
@@ -44,7 +44,7 @@ export interface KnockoutData {
 
 export interface PredictionData {
     groups: { [groupName: string]: Array<Score | null> };
-    knockout: { [round: string]: Array<Score | null> }
+    knockout: { [round: string]: Array<Score | null> };
 }
 
 @Injectable({
