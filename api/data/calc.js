@@ -100,7 +100,9 @@ function calculateGroupResults(results, groups, matches, predictions) {
       predictions.groups[groupName] || []);
     groupMapping[groupName] = groupOrder.map(team => ({ team: team, ...groupMapping[groupName][team] }));
   }
-  return groupMapping;
+  return {
+    groupResults: groupMapping,
+  };
 }
 
 function mergeFirstKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predictedAwayTeam) {
@@ -145,7 +147,7 @@ function calculateKnockoutBracket(results, groups, matches, predictions) {
       }
     }
   }
-  const groupResults = calculateGroupResults(results, groups, matches, predictions);
+  const groupResults = calculateGroupResults(results, groups, matches, predictions).groupResults;
   const actualKnockout = matches.knockout;
   const predicted16 = [
     mergeFirstKnockoutMatch(actualKnockout['16'][0], groupResults['A'][0].team, groupResults['B'][1].team),
