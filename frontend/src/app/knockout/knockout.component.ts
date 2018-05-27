@@ -39,4 +39,14 @@ export class KnockoutComponent implements OnChanges {
       this.rounds = rounds;
     }
   }
+
+  public trackRound(index: number, item: any) {
+    return item;
+  }
+
+  public trackMatch(index: number, item: UncertainMatch) {
+    const homeTeam = item.homeTeam === null ? null : item.homeTeam.abbreviation;
+    const awayTeam = item.awayTeam === null ? null : item.awayTeam.abbreviation;
+    return `${homeTeam}-${awayTeam}`;
+  }
 }

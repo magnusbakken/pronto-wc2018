@@ -1,7 +1,7 @@
 <div [formGroup]="formGroup">
-  <div *ngFor="let round of rounds">
+  <div *ngFor="let round of rounds; trackBy: trackRound">
     {{ roundNameMappings[round] }}
-    <div *ngFor="let match of knockout[round]; let idx = index">
+    <div *ngFor="let match of knockout[round]; let idx = index; trackBy: trackMatch">
       <app-match
         [formGroup]="formGroup.controls[round].controls[idx]"
         [match]="match"

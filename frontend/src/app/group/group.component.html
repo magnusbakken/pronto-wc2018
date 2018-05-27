@@ -1,5 +1,5 @@
 <div *ngIf="group">
-  <app-match *ngFor="let match of group.matches; let idx = index"
+  <app-match *ngFor="let match of group.matches; let idx = index; trackBy: trackMatch"
     [formGroup]="formGroup.controls[idx]"
     [match]="match"
     [prediction]="predictions !== undefined ? predictions[idx] : null"

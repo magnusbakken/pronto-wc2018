@@ -3,7 +3,7 @@
   <form [formGroup]="formGroup" novalidate>
     <div [formGroup]="formGroup.controls.groups">
       <mat-grid-list cols="2" rowHeight="350px">
-        <mat-grid-tile *ngFor="let group of groups; let groupIndex = idx">
+        <mat-grid-tile *ngFor="let group of groups; let groupIndex = idx; trackBy: trackGroup">
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>

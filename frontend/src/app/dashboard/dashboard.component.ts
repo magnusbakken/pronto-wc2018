@@ -47,7 +47,7 @@ export class DashboardComponent implements OnChanges {
         if (nameof<DashboardComponent>("knockout") in changes && !changes.knockout.firstChange) {
             this.hasKnockout = true;
         }
-        if (this.hasGroups && this.hasPredictions && this.hasResults && this.hasKnockout) {
+        if (this.hasGroups && this.hasPredictions && this.hasResults && this.hasKnockout && !this.formGroup) {
             const groupControls = this.groups.map(g => [g.name, this.createGroupFormArray(g)] as [string, FormArray]);
             const knockoutRoundControls: Array<[string, FormArray]> = [];
             for (const round in this.knockout.knockout) {
@@ -69,6 +69,10 @@ export class DashboardComponent implements OnChanges {
 
     public singleGroupDisplayChanged(groupName: string, newValue: "matches" | "table"): void {
         this.groupDisplays[groupName] = newValue;
+    }
+
+    public trackGroup(index: number, item: Group) {
+        return item.name;
     }
 
     private createGroupFormArray(group: Group): FormArray {
