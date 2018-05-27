@@ -23,12 +23,14 @@ import { GroupComponent } from './group/group.component';
 import { MatchComponent } from './match/match.component';
 import { TeamComponent } from './team/team.component';
 
-import { AppEffects, AppState, initialStateReducer, predictionStateReducer, resultStateReducer } from './store';
+import { AppEffects, AppState, initialStateReducer, predictionStateReducer, resultStateReducer, knockoutStateReducer } from './store';
+import { KnockoutComponent } from './knockout/knockout.component';
 
 const reducers: ActionReducerMap<AppState> = {
     initial: initialStateReducer,
     predictions: predictionStateReducer,
     results: resultStateReducer,
+    knockout: knockoutStateReducer,
 };
 
 @NgModule({
@@ -53,7 +55,8 @@ const reducers: ActionReducerMap<AppState> = {
         DashboardComponent,
         GroupComponent,
         TeamComponent,
-        MatchComponent
+        MatchComponent,
+        KnockoutComponent
     ],
     bootstrap: [AppComponent]
 })

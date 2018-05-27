@@ -1,5 +1,5 @@
-import { AllActions, ChangePredictionsAction, InitialDataLoadedAction, PredictionsLoadedAction, ResultsLoadedAction } from "./actions";
-import { InitialState, PredictionState, ResultState } from "./state";
+import { AllActions, ChangePredictionsAction, InitialDataLoadedAction, PredictionsLoadedAction, ResultsLoadedAction, KnockoutLoadedAction } from "./actions";
+import { InitialState, PredictionState, ResultState, KnockoutState } from "./state";
 
 export const EmptyInitialState: InitialState = {
     groups: [],
@@ -22,18 +22,21 @@ export function initialStateReducer(state: InitialState | undefined = EmptyIniti
 
 export const EmptyPredictionState: PredictionState = {
     groups: {},
-}
+    knockout: {},
+};
 
 export function predictionStateReducer(state: PredictionState | undefined = EmptyPredictionState, action: typeof AllActions): PredictionState {
     switch (action.type) {
         case PredictionsLoadedAction.type: {
             return {
                 groups: action.groups,
+                knockout: action.knockout,
             };
         }
         case ChangePredictionsAction.type: {
             return {
                 groups: action.groups,
+                knockout: action.knockout,
             };
         }
         default: {
@@ -44,13 +47,32 @@ export function predictionStateReducer(state: PredictionState | undefined = Empt
 
 export const EmptyResultsState: ResultState = {
     groups: {},
-}
+    knockout: {},
+};
 
 export function resultStateReducer(state: ResultState | undefined = EmptyPredictionState, action: typeof AllActions): ResultState {
     switch (action.type) {
         case ResultsLoadedAction.type: {
             return {
                 groups: action.groups,
+                knockout: action.knockout,
+            };
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+export const EmptyKnockoutState: KnockoutState = {
+    knockout: {},
+};
+
+export function knockoutStateReducer(state: KnockoutState | undefined = EmptyKnockoutState, action: typeof AllActions): KnockoutState {
+    switch (action.type) {
+        case KnockoutLoadedAction.type: {
+            return {
+                knockout: action.knockout,  
             };
         }
         default: {

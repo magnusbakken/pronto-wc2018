@@ -1,0 +1,14 @@
+<div [formGroup]="formGroup">
+  <div *ngFor="let round of rounds">
+    {{ roundNameMappings[round] }}
+    <div *ngFor="let match of knockout[round]; let idx = index">
+      {{ idx }}
+      <app-match
+        [formGroup]="formGroup.controls[round].controls[idx]"
+        [match]="match"
+        [prediction]="predictions[round][idx]"
+        [result]="results[round][idx]">
+      </app-match>
+    </div>
+  </div>
+</div>

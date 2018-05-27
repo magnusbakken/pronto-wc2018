@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { nameof } from '../../utils';
-import { Match } from '../models';
+import { Match, UncertainMatch } from '../models';
 import { Score } from '../api/api.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { Score } from '../api/api.service';
 })
 export class MatchComponent implements OnChanges {
     @Input() public formGroup: FormGroup;
-    @Input() public match: Match;
+    @Input() public match: Match | UncertainMatch;
     @Input() public prediction: Score | null;
     @Input() public result: Score | null;
 

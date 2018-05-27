@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
-import { combineLatest } from "rxjs";
-import { debounceTime, map, mapTo, switchMap } from "rxjs/operators";
+import { debounceTime, map, mapTo, switchMap, combineLatest, tap, flatMap } from "rxjs/operators";
 import { ofType } from "ts-action-operators";
 
-import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchData } from "../api/api.service";
+import { ApiService, GroupData, SingleMatchData, TeamData, InitialData, MatchData, KnockoutData } from "../api/api.service";
 import { Group, Match, Team } from "../models";
 import {
     ChangePredictionsAction,
@@ -16,8 +15,13 @@ import {
     PredictionsSavedAction,
     ResultsLoadedAction,
     SavePredictionsAction,
+    LoadKnockoutAction,
+    KnockoutLoadedAction,
 } from "./actions";
-import { InitialState } from "./state";
+import { InitialState, AppState, KnockoutState } from "./state";
+import { Store, select } from "@ngrx/store";
+import { AppService } from "./service";
+import { of, concat } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +32,16 @@ export class AppEffects {
         ofType(LoadInitialDataAction),
         switchMap(_ => this.api.getInitialData().pipe(
             map(data => new InitialDataLoadedAction(getInitialState(data))),
+        )),
+    );
+
+    @Effect()
+    public readonly initialDataLoaded = this.actions$.pipe(
+        ofType(InitialDataLoadedAction),
+        flatMap(_ => concat(
+            of(new LoadPredictionsAction()),
+            of(new LoadResultsAction()),
+            of(new LoadKnockoutAction()),
         )),
     );
 
@@ -43,13 +57,13 @@ export class AppEffects {
     public readonly predictionsChanged = this.actions$.pipe(
         ofType(ChangePredictionsAction),
         debounceTime(1000),
-        map(predictions => new SavePredictionsAction(predictions)),
+        map(a => new SavePredictionsAction({ groups: a.groups, knockout: a.knockout })),
     );
 
     @Effect()
     public readonly savePredictions = this.actions$.pipe(
         ofType(SavePredictionsAction),
-        switchMap(predictions => this.api.savePredictions(predictions).pipe(
+        switchMap(a => this.api.savePredictions({ groups: a.groups, knockout: a.knockout }).pipe(
             mapTo(new PredictionsSavedAction()),
         )),
     );
@@ -62,7 +76,26 @@ export class AppEffects {
         )),
     );
 
-    public constructor(private actions$: Actions, private api: ApiService) { }
+    @Effect()
+    public readonly loadKnockout = this.actions$.pipe(
+        ofType(LoadKnockoutAction),
+        switchMap(_ => this.api.getKnockout().pipe(
+            combineLatest(this.store.pipe(select(s => s.initial.teams))),
+            map(([data, teams]) => new KnockoutLoadedAction(getKnockoutState(data, teams))),
+        )),
+    );
+
+    @Effect()
+    public readonly reloadKnockout = this.actions$.pipe(
+        ofType(PredictionsSavedAction),
+        mapTo(new LoadKnockoutAction()),
+    )
+
+    public constructor(
+        private actions$: Actions,
+        private store: Store<AppState>,
+        private service: AppService,
+        private api: ApiService) { }
 }
 
 function getInitialState(initialData: InitialData): InitialState {
@@ -102,6 +135,28 @@ function parseGroupMatches(matchData: SingleMatchData[], teamMapping: Map<string
             date: new Date(x.date),
         };
     });
+}
+
+function getKnockoutState(knockoutData: KnockoutData, teams: Team[]): KnockoutState {
+    const knockoutState: KnockoutState = {
+        knockout: {},
+    };
+    const teamMapping = new Map(teams.map(x => [x.abbreviation, x] as [string, Team]));
+    for (const round in knockoutData.knockout) {
+        knockoutState.knockout[round] = [];
+        if (knockoutData.knockout.hasOwnProperty(round)) {
+            for (const match of knockoutData.knockout[round]) {
+                const homeTeam = match.homeTeam ? teamMapping.get(match.homeTeam) : null;
+                const awayTeam = match.awayTeam ? teamMapping.get(match.awayTeam) : null;
+                knockoutState.knockout[round].push({
+                    homeTeam: homeTeam,
+                    awayTeam: awayTeam,
+                    date: new Date(match.date),
+                });
+            }
+        }
+    }
+    return knockoutState;
 }
 
 function parseGroups(groupData: GroupData[], teamMapping: Map<string, Team>, matches: { [groupName: string]: Match[] }): Group[] {

@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 
 export type GroupData = { name: string, teams: string[] };
 export type SingleMatchData = { homeTeam: string, awayTeam: string, date: string };
+export type UncertainMatchData = { homeTeam: string | null, awayTeam: string | null, date: string };
 export type GroupMatchData = { [groupName: string]: SingleMatchData[] };
 export type MatchData = { groups: GroupMatchData };
 export type TeamData = { abbreviation: string, fullName: string };
@@ -21,8 +22,18 @@ export interface Score {
     awayScore: number;
 }
 
-export interface ScoreData {
+export interface ResultData {
     groups: { [groupName: string]: Array<Score | null> };
+    knockout: { [round: string]: Array<Score | null> };
+}
+
+export interface KnockoutData {
+    knockout: { [round: string]: UncertainMatchData[] };
+}
+
+export interface PredictionData {
+    groups: { [groupName: string]: Array<Score | null> };
+    knockout: { [round: string]: Array<Score | null> }
 }
 
 @Injectable({
@@ -35,15 +46,19 @@ export class ApiService {
         return this.http.get(`${environment.apiUrl}initial`).pipe(map(a => a as InitialData));
     }
 
-    public getPredictions(): Observable<ScoreData> {
-        return this.http.get(`${environment.apiUrl}predictions`).pipe(map(a => a as ScoreData));
+    public getPredictions(): Observable<PredictionData> {
+        return this.http.get(`${environment.apiUrl}predictions`).pipe(map(a => a as PredictionData));
     }
 
-    public savePredictions(predictions: ScoreData): Observable<{}> {
+    public savePredictions(predictions: PredictionData): Observable<{}> {
         return this.http.put(`${environment.apiUrl}predictions`, predictions).pipe(map(_ => ({})));
     }
 
-    public getResults(): Observable<ScoreData> {
-        return this.http.get(`${environment.apiUrl}results`).pipe(map(a => a as ScoreData));
+    public getResults(): Observable<ResultData> {
+        return this.http.get(`${environment.apiUrl}results`).pipe(map(a => a as ResultData));
+    }
+
+    public getKnockout(): Observable<KnockoutData> {
+        return this.http.get(`${environment.apiUrl}knockout`).pipe(map(a => a as KnockoutData));
     }
 }

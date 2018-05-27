@@ -6,6 +6,7 @@ import {
     LoadInitialDataAction,
     LoadPredictionsAction,
     LoadResultsAction,
+    LoadKnockoutAction,
 } from "./actions";
 import { AppState, PredictionState } from "./state";
 
@@ -16,6 +17,7 @@ export class AppService {
     public readonly initialData$ = this.store.pipe(select(s => s.initial));
     public readonly predictions$ = this.store.pipe(select(s => s.predictions));
     public readonly results$ = this.store.pipe(select(s => s.results));
+    public readonly knockout$ = this.store.pipe(select(s => s.knockout));
 
     public constructor(private store: Store<AppState>) { }
 
@@ -23,15 +25,7 @@ export class AppService {
         this.store.dispatch(new LoadInitialDataAction());
     }
 
-    public loadPredictions(): void {
-        this.store.dispatch(new LoadPredictionsAction());
-    }
-
     public changePredictions(predictions: PredictionState): void {
         this.store.dispatch(new ChangePredictionsAction(predictions))
-    }
-
-    public loadResults(): void {
-        this.store.dispatch(new LoadResultsAction());
     }
 }

@@ -32,5 +32,12 @@
         </mat-grid-tile>
       </mat-grid-list>
     </div>
+    <div>
+      <app-knockout
+        [formGroup]="formGroup.controls.knockout"
+        [knockout]="knockout.knockout"
+        [predictions]="predictions.knockout"
+        [results]="results.knockout"></app-knockout>
+    </div>
   </form>
 </div>

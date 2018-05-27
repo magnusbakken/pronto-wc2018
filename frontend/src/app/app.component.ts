@@ -12,7 +12,5 @@ export class AppComponent implements OnInit {
     
     public ngOnInit(): void {
         this.service.loadInitialData();
-        this.service.loadPredictions();
-        this.service.loadResults();
     }
 }
