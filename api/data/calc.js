@@ -103,7 +103,7 @@ function calculateGroupResults(results, groups, matches, predictions) {
   return groupMapping;
 }
 
-function mergeKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predictedAwayTeam) {
+function mergeFirstKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predictedAwayTeam) {
   return {
     homeTeam: actualKnockoutMatch.homeTeam || predictedHomeTeam,
     awayTeam: actualKnockoutMatch.awayTeam || predictedAwayTeam,
@@ -111,25 +111,63 @@ function mergeKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predictedAwa
   };
 }
 
-function predictedKnockoutWinner(round, idx, groupResults, matches, predictions) {
-  return 
+function mergeLaterKnockoutMatch(actualKnockoutMatch, previousRound1, previousRound2, predictionRound1, predictionRound2, pickLoser = false) {
+  let homeTeam = actualKnockoutMatch.homeTeam;
+  if (!homeTeam) {
+    const round1HomeWinner = predictionRound1.homeScore > predictionRound1.awayScore;
+    homeTeam = pickLoser ?
+      (round1HomeWinner ? previousRound1.homeTeam : previousRound1.awayTeam) :
+      (round1HomeWinner ? previousRound1.awayTeam : previousRound1.homeTeam);
+  }
+  let awayTeam = actualKnockoutMatch.awayTeam;  
+  if (!awayTeam) {
+    const round2HomeWinner = predictionRound2.homeScore > predictionRound2.awayScore;
+    awayTeam = pickLoser ?
+      (round2HomeWinner ? previousRound2.homeTeam : previousRound2.awayTeam) :
+      (round2HomeWinner ? previousRound2.awayTeam : previousRound2.homeTeam);
+  }
+  return {
+    homeTeam: homeTeam,
+    awayTeam: awayTeam,
+    date: actualKnockoutMatch.date,
+  };
 }
 
 function calculateKnockoutBracket(results, groups, matches, predictions) {
   const groupResults = calculateGroupResults(results, groups, matches, predictions);
   const actualKnockout = matches.knockout;
   const predicted16 = [
-    mergeKnockoutMatch(actualKnockout['16'][0], groupResults['A'][0].team, groupResults['B'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][1], groupResults['C'][0].team, groupResults['D'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][2], groupResults['E'][0].team, groupResults['F'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][3], groupResults['G'][0].team, groupResults['H'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][4], groupResults['B'][0].team, groupResults['A'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][5], groupResults['D'][0].team, groupResults['C'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][6], groupResults['F'][0].team, groupResults['E'][1].team),
-    mergeKnockoutMatch(actualKnockout['16'][7], groupResults['H'][0].team, groupResults['G'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][0], groupResults['A'][0].team, groupResults['B'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][1], groupResults['C'][0].team, groupResults['D'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][2], groupResults['E'][0].team, groupResults['F'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][3], groupResults['G'][0].team, groupResults['H'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][4], groupResults['B'][0].team, groupResults['A'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][5], groupResults['D'][0].team, groupResults['C'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][6], groupResults['F'][0].team, groupResults['E'][1].team),
+    mergeFirstKnockoutMatch(actualKnockout['16'][7], groupResults['H'][0].team, groupResults['G'][1].team),
+  ];
+  const predicted8 = [
+    mergeLaterKnockoutMatch(actualKnockout['8'][0], predicted16[0], predicted16[1], predictions.knockout['16'][0], predictions.knockout['16'][1]),
+    mergeLaterKnockoutMatch(actualKnockout['8'][1], predicted16[2], predicted16[3], predictions.knockout['16'][2], predictions.knockout['16'][3]),
+    mergeLaterKnockoutMatch(actualKnockout['8'][2], predicted16[4], predicted16[5], predictions.knockout['16'][4], predictions.knockout['16'][5]),
+    mergeLaterKnockoutMatch(actualKnockout['8'][3], predicted16[6], predicted16[7], predictions.knockout['16'][6], predictions.knockout['16'][7]),
+  ];
+  const predicted4 = [
+    mergeLaterKnockoutMatch(actualKnockout['4'][0], predicted8[0], predicted8[1], predictions.knockout['8'][0], predictions.knockout['8'][1]),
+    mergeLaterKnockoutMatch(actualKnockout['4'][1], predicted8[2], predicted8[3], predictions.knockout['8'][2], predictions.knockout['8'][3]),
+  ];
+  const predicted2 = [
+    mergeLaterKnockoutMatch(actualKnockout['2'][0], predicted4[0], predicted4[1], predictions.knockout['4'][0], predictions.knockout['4'][1], true),
+  ];
+  const predicted1 = [
+    mergeLaterKnockoutMatch(actualKnockout['1'][0], predicted4[0], predicted4[1], predictions.knockout['4'][0], predictions.knockout['4'][1]),
   ];
   return {
-    "16": predicted16,
+    '16': predicted16,
+    '8': predicted8,
+    '4': predicted4,
+    '2': predicted2,
+    '1': predicted1,
   };
 }
 
