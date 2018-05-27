@@ -2,20 +2,40 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../db/index.js');
-const results = require('../db/results.json');
+
+const SelfReloadJSON = require('self-reload-json');
+const matches = new SelfReloadJSON(__dirname + '/../db/matches.json');
+const results = new SelfReloadJSON(__dirname + '/../db/results.json');
+
+const REQUIRED_GROUPS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const REQUIRED_KNOCKOUT_ROUNDS = ['16', '8', '4', '2', '1'];
+
+router.get('/', function(req, res, next) {
+  res.setHeader('Content-Type', 'application/json');
+  const predictions = db.getPredictions('dummyuser');
+  if (!predictions.groups) {
+    predictions.groups = {};
+  }
+  for (const group in REQUIRED_GROUPS) {
+    if (!predictions.groups[group]) {
+      predictions.groups[group] = [];
+    }
+  }
+  if (!predictions.knockout) {
+    predictions.knockout = {};
+  }
+  for (const round in REQUIRED_KNOCKOUT_ROUNDS) {
+    if (!predictions.knockout[round]) {
+      predictions.knockout[round] = [];
+    }
+  }
+  res.send(predictions);
+});
 
 function saveFailed(res, reason) {
   res.status(400);
   res.send(reason);
 }
-
-router.get('/', function(req, res, next) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(db.getPredictions('dummyuser'));
-});
-
-const REQUIRED_GROUPS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-const REQUIRED_KNOCKOUT_ROUNDS = ['16', '8', '4', '2', '1'];
 
 function validatePredictions(res, predictions) {
   if (!predictions) {
@@ -43,7 +63,8 @@ function validatePredictions(res, predictions) {
   return true;
 }
 
-function sanitizePredictions(newPredictions, currentPredictions, results) {
+function sanitizePredictions(newPredictions, currentPredictions, matches, results) {
+  const now = new Date();
   const sanitizedPredictions = {
     groups: {},
     knockout: {},
@@ -59,7 +80,8 @@ function sanitizePredictions(newPredictions, currentPredictions, results) {
     sanitizedPredictions.groups[group] = [];
     let idx = 0;
     for (const matchResult of results.groups[group]) {
-      if (matchResult === null) {
+      const match = matches.groups[group][idx];
+      if (matchResult === null && new Date(match.date) > now) {
         sanitizedPredictions.groups[group].push(newPredictions.groups[group][idx] || null);
       } else {
         if (!sanitizedPredictions.groups[group]) {
@@ -74,7 +96,8 @@ function sanitizePredictions(newPredictions, currentPredictions, results) {
     sanitizedPredictions.knockout[knockoutRound] = [];
     let idx = 0;
     for (const matchResult of results.knockout[knockoutRound]) {
-      if (matchResult === null) {
+      const match = matches.knockout[knockoutRound][idx];
+      if (matchResult === null && match.date > now) {
         sanitizedPredictions.knockout[knockoutRound].push(newPredictions.knockout[knockoutRound][idx] || null);
       } else {
         if (!sanitizedPredictions.knockout[knockoutRound]) {
@@ -93,7 +116,7 @@ router.put('/', function(req, res, next) {
     return;
   }
   const currentPredictions = db.getPredictions('dummyuser');
-  const predictions = sanitizePredictions(req.body, currentPredictions, results);
+  const predictions = sanitizePredictions(req.body, currentPredictions, matches, results);
   db.setPredictions('dummyuser', predictions);
   res.status(204);
   res.send();

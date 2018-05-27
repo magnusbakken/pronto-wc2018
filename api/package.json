@@ -14,7 +14,8 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "node-gyp": "^3.6.2"
+    "node-gyp": "^3.6.2",
+    "self-reload-json": "^0.4.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
