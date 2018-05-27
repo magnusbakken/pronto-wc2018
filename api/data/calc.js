@@ -113,27 +113,38 @@ function mergeFirstKnockoutMatch(actualKnockoutMatch, predictedHomeTeam, predict
 
 function mergeLaterKnockoutMatch(actualKnockoutMatch, previousRound1, previousRound2, predictionRound1, predictionRound2, pickLoser = false) {
   let homeTeam = actualKnockoutMatch.homeTeam;
-  if (!homeTeam) {
+  if (!homeTeam && predictionRound1) {
     const round1HomeWinner = predictionRound1.homeScore > predictionRound1.awayScore;
     homeTeam = pickLoser ?
       (round1HomeWinner ? previousRound1.homeTeam : previousRound1.awayTeam) :
       (round1HomeWinner ? previousRound1.awayTeam : previousRound1.homeTeam);
   }
   let awayTeam = actualKnockoutMatch.awayTeam;  
-  if (!awayTeam) {
+  if (!awayTeam && predictionRound2) {
     const round2HomeWinner = predictionRound2.homeScore > predictionRound2.awayScore;
     awayTeam = pickLoser ?
       (round2HomeWinner ? previousRound2.homeTeam : previousRound2.awayTeam) :
       (round2HomeWinner ? previousRound2.awayTeam : previousRound2.homeTeam);
   }
   return {
-    homeTeam: homeTeam,
-    awayTeam: awayTeam,
+    homeTeam: homeTeam || null,
+    awayTeam: awayTeam || null,
     date: actualKnockoutMatch.date,
   };
 }
 
 function calculateKnockoutBracket(results, groups, matches, predictions) {
+  if (!predictions) {
+    preditions = {};
+  }
+  if (!predictions.knockout) {
+    predictions.knockout = {};
+    for (const round in ['16', '8', '4', '2', '1']) {
+      if (!predictions.knockout[round]) {
+        predictions.knockout[round] = [];
+      }
+    }
+  }
   const groupResults = calculateGroupResults(results, groups, matches, predictions);
   const actualKnockout = matches.knockout;
   const predicted16 = [
@@ -163,11 +174,13 @@ function calculateKnockoutBracket(results, groups, matches, predictions) {
     mergeLaterKnockoutMatch(actualKnockout['1'][0], predicted4[0], predicted4[1], predictions.knockout['4'][0], predictions.knockout['4'][1]),
   ];
   return {
-    '16': predicted16,
-    '8': predicted8,
-    '4': predicted4,
-    '2': predicted2,
-    '1': predicted1,
+    'knockout': {
+      '16': predicted16,
+      '8': predicted8,
+      '4': predicted4,
+      '2': predicted2,
+      '1': predicted1,
+    },
   };
 }
 
