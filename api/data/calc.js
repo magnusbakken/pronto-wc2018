@@ -9,35 +9,24 @@ function newTeamResult() {
   };
 }
 
-function getOutcome(matchResult) {
-  if (matchResult.homeScore === matchResult.awayScore) {
-    return 'draw';
-  } else if (matchResult.homeScore > matchResult.awayScore) {
-    return 'home';
-  } else {
-    return 'away';
-  }
-}
-
 function updateTeamResults(matchResult, homeTeam, awayTeam) {
   homeTeam.goalsScored += matchResult.homeScore;
   homeTeam.goalsAllowed += matchResult.awayScore;
   awayTeam.goalsScored += matchResult.awayScore;
   awayTeam.goalsAllowed += matchResult.homeScore;
-  const outcome = getOutcome(matchResult);
-  if (outcome === 'home') {
+  if (matchResult.homeScore > matchResult.awayScore) {
     homeTeam.wins += 1;
     homeTeam.points += 3;
     awayTeam.losses += 1;
-  } else if (outcome === 'draw') {
+  } else if (matchResult.homeScore < matchResult.awayScore) {
+    homeTeam.losses += 1;
+    awayTeam.wins += 1;
+    awayTeam.points += 3;
+  } else {
     homeTeam.draws += 1;
     homeTeam.points += 1;
     awayTeam.draws += 1;
     awayTeam.points += 1;
-  } else if (outcome === 'away') {
-    homeTeam.losses += 1;
-    awayTeam.wins += 1;
-    awayTeam.points += 3;
   }
 }
 
