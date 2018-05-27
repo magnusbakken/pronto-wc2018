@@ -4,5 +4,5 @@
   [predictions]="service.predictions$ | async"
   [results]="service.results$ | async"
   [knockout]="service.knockout$ | async"
-  (predictionsChanged)="service.changePredictions($event.groups, $event.knockout)">
+  (predictionsChanged)="service.changePredictions($event)">
 </app-dashboard>
