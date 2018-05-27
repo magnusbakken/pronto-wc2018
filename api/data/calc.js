@@ -1,3 +1,14 @@
+function newTeamResult() {
+  return {
+    points: 0,
+    goalsScored: 0,
+    goalsAllowed: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+  };
+}
+
 function getOutcome(matchResult) {
   if (matchResult.homeScore === matchResult.awayScore) {
     return 'draw';
@@ -14,8 +25,20 @@ function updateTeamResults(matchResult, homeTeam, awayTeam) {
   awayTeam.goalsScored += matchResult.awayScore;
   awayTeam.goalsAllowed += matchResult.homeScore;
   const outcome = getOutcome(matchResult);
-  homeTeam.points += outcome === 'home' ? 3 : outcome === 'draw' ? 1 : 0;
-  awayTeam.points += outcome === 'away' ? 3 : outcome === 'draw' ? 1 : 0;
+  if (outcome === 'home') {
+    homeTeam.wins += 1;
+    homeTeam.points += 3;
+    awayTeam.losses += 1;
+  } else if (outcome === 'draw') {
+    homeTeam.draws += 1;
+    homeTeam.points += 1;
+    awayTeam.draws += 1;
+    awayTeam.points += 1;
+  } else if (outcome === 'away') {
+    homeTeam.losses += 1;
+    awayTeam.wins += 1;
+    awayTeam.points += 3;
+  }
 }
 
 function compareTeams(team1, team2, fallbackToAlphanumeric = false) {
@@ -46,10 +69,10 @@ function breakAdvancedTie(teams, otherTeamsWithSamePoints, results, matches, pre
   const internalTable = {};
   for (const [match, index] of relevantMatches) {
     if (!(match.homeTeam in internalTable)) {
-      internalTable[match.homeTeam] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
+      internalTable[match.homeTeam] = newTeamResult();
     }
     if (!(match.awayTeam in internalTable)) {
-      internalTable[match.awayTeam] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
+      internalTable[match.awayTeam] = newTeamResult();
     }
     const matchResult = results[index] || predictions[index] || { homeScore: 0, awayScore: 0 };
     updateTeamResults(matchResult, internalTable[match.homeTeam], internalTable[match.awayTeam]);
@@ -110,7 +133,7 @@ function calculateGroupResults(results, groups, matches, predictions) {
     }
     groupMapping[groupName] = {};
     for (const team of groups.filter(g => g.name === groupName)[0].teams) {
-      groupMapping[groupName][team] = { points: 0, goalsScored: 0, goalsAllowed: 0 };
+      groupMapping[groupName][team] = newTeamResult();
     }
     let idx = 0;
     for (let matchResult of results.groups[groupName]) {
